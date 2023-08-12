@@ -1,0 +1,39 @@
+
+<h2>Register Account Form</h2>
+
+
+<div class="login-form">
+
+
+  <%= form_with scope: @user, local: true, url: users_path do |f| %>
+    <p>
+      <%= f.text_field :username, class: "form-control", placeholder: "Username" %>
+    </p>
+
+    <p>
+      <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+    </p>
+
+    <p>
+      <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Password Confirmation" %>
+    </p>
+
+    <% if flash[:alert] %>
+      <div class="alert alert-danger" role="alert">
+        <span><%= flash[:alert] %></span>
+      </div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div class="alert alert-success">
+        <span><%= flash[:notice] %></span>
+      </div>
+    <% end %>
+
+    <p>
+      <%= f.submit "Register Account" %>
+    </p>
+
+    <p>If you already have an account? <%= link_to "Log In", sessions_path %></p>
+  <% end %>
+
+</div>

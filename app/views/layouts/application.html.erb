@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>YoutubeShareVideos</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Youtube Share Videos</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+<header class="header">
+  <div class="left-header">
+    <h2><%= link_to 'Funny Movies', root_path %></h2>
+  </div>
+  <div class="right-header">
+    <% if current_user %>
+<!--      <button class="btn btn-share-video"><%#= button_to 'My shared video', my_videos_path, method: :get %></button>-->
+<!--      <button class="btn btn-share-video"><%#= button_to 'Share video', share_path, method: :get %></button>-->
+      <p>Welcome <%= current_user.username %>!</p>
+      <%= button_to 'Logout', logout_path, method: :delete %>
+    <% else %>
+      <%= button_to 'Login', sessions_path, method: :get %>
+      <%= button_to 'Sign Up', users_path, method: :get %>
+    <% end %>
+  </div>
+</header>
+<%= yield %>
+</body>
 </html>

@@ -1,0 +1,37 @@
+
+<h2>Login Form</h2>
+
+
+<div class="login-form">
+
+
+  <%= form_with(model:@user, local: true,  url: sessions_path) do |f| %>
+    <p>
+      <%= f.text_field :username, class: "form-control", placeholder: "Username" %>
+    </p>
+
+    <p>
+      <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+    </p>
+
+
+    <% if flash[:alert] %>
+      <div class="alert alert-danger" role="alert">
+        <span><%= flash[:alert] %></span>
+      </div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div class="alert alert-success">
+        <span><%= flash[:notice] %></span>
+      </div>
+    <% end %>
+
+    <p>
+      <%= f.submit "Login" %>
+    </p>
+
+    <p>If you don't have an account? <%= link_to "Sign Up", users_path %></p>
+
+  <% end %>
+
+</div>
