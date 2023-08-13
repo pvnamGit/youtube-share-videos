@@ -13,7 +13,7 @@ class VideoSharesController < ApplicationController
   def create
     if current_user.nil?
       flash[:alert] = "You need to sign in or sign up before continuing."
-      return
+      redirect_to sessions_path
     end
     is_video_existed = VideoShare.find_by(url: params[:url], owner_id: current_user.id)
     if is_video_existed
