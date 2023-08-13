@@ -6,7 +6,7 @@
   <%= csp_meta_tag %>
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
 <body>
@@ -16,13 +16,13 @@
   </div>
   <div class="right-header">
     <% if current_user %>
-<!--      <button class="btn btn-share-video"><%#= button_to 'My shared video', my_videos_path, method: :get %></button>-->
-<!--      <button class="btn btn-share-video"><%#= button_to 'Share video', share_path, method: :get %></button>-->
+      <%= button_to 'My shared video', my_videos_path, method: :get, class: 'btn'%>
+      <%= button_to 'Share video', new_video_share_path, method: :get, class: 'btn' %>
       <p>Welcome <%= current_user.username %>!</p>
-      <%= button_to 'Logout', logout_path, method: :delete %>
+      <%= button_to 'Logout', logout_path, method: :delete, class: 'btn' %>
     <% else %>
-      <%= button_to 'Login', sessions_path, method: :get %>
-      <%= button_to 'Sign Up', users_path, method: :get %>
+      <%= button_to 'Login', sessions_path, method: :get, class: 'btn' %>
+      <%= button_to 'Sign Up', users_path, method: :get, class: 'btn'  %>
     <% end %>
   </div>
 </header>

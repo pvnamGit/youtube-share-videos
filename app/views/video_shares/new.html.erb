@@ -1,0 +1,21 @@
+<h1>Share a video</h1>
+
+<div class="share-video">
+  <%= form_tag create_share_video_path, method: :post do %>
+    <div>
+      <%= label_tag :url, "YouTube URL" %>
+      <%= text_field_tag :url %>
+    </div>
+    <%= submit_tag "Submit" %>
+    <% if flash[:alert] %>
+      <div class="alert alert-danger" role="alert">
+        <span><%= flash[:alert] %></span>
+      </div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div class="alert alert-success">
+        <span><%= flash[:notice] %></span>
+      </div>
+    <% end %>
+  <% end %>
+</div>

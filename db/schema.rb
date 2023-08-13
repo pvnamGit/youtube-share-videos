@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_11_155337) do
+ActiveRecord::Schema.define(version: 2023_08_12_074520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,4 +22,16 @@ ActiveRecord::Schema.define(version: 2023_08_11_155337) do
     t.string "password_digest"
   end
 
+  create_table "video_shares", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "url"
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "thumbnail_url"
+    t.index ["owner_id"], name: "index_video_shares_on_owner_id"
+  end
+
+  add_foreign_key "video_shares", "users", column: "owner_id"
 end

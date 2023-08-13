@@ -39,8 +39,21 @@
 
 }
 
+.btn {
+    margin-right: 4px;
+}
+
 .form-control {
     margin-right: 4px;
 }
 
+.btn-login {
+    margin-right: 5px;
+}
+.btn-logout {
+    margin-left: 5px;
+}
 
+.alert alert-danger {
+    color: #B00100;
+}

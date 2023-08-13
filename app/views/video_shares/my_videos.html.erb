@@ -1,0 +1,16 @@
+<h1>My Shared Videos</h1>
+<p>You shared <%= @my_videos.count %> videos</p>
+<div class="video-row">
+  <% @my_videos.each do |video| %>
+    <div class="col-md-4">
+      <div class="card mb-4 box-shadow">
+        <img class="card-img" src="<%= video.thumbnail_url %>" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to video.title, video.url, target: '_blank' %></h5>
+          <p class="card-text"><%= video.description %></p>
+            <%= button_to "Delete this video", video_share_path(video.id), method: :delete, data: { confirm: "Are you sure you want to delete this video?" }, class: "btn-delete-video" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
