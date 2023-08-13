@@ -7,7 +7,10 @@ class VideoSharesController < ApplicationController
   end
 
   def new
-
+    if current_user.nil?
+      flash[:alert] = "You need to sign in or sign up before continuing."
+      redirect_to sessions_path
+    end
   end
 
   def create
