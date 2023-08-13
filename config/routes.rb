@@ -18,4 +18,8 @@ Rails.application.routes.draw do
 
   get '/my_videos', to: 'video_shares#my_videos'
 
+
+  mount ActionCable.server => '/cable'
+
+
 end

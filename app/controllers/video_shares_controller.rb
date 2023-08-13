@@ -30,6 +30,8 @@ class VideoSharesController < ApplicationController
     thumbnail_url = video_info.thumbnail_url
     video = current_user.video_shares.new(url: params[:url], title: title, description: description, thumbnail_url: thumbnail_url)
     if video.save
+      ActionCable.server.broadcast 'notifications',
+                                   message: "#{current_user.username} shared #{video.title}"
       redirect_to root_path
     else
       flash[:alert] = "Fail to share video"
@@ -49,6 +51,7 @@ class VideoSharesController < ApplicationController
   end
 
   private
+
   def valid_youtube_url?(url)
     url =~ %r{\A(https?://)?(www\.)?(youtube\.com/watch\?v=|youtu\.be/)[a-zA-Z0-9_-]{11}}
   end
