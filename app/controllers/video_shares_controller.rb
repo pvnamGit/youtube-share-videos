@@ -32,10 +32,18 @@ class VideoSharesController < ApplicationController
     description = video_info.description
     thumbnail_url = video_info.thumbnail_url
     video = current_user.video_shares.new(url: params[:url], title: title, description: description, thumbnail_url: thumbnail_url)
+
     if video.save
-      ActionCable.server.broadcast 'notifications',
-                                   message: "#{current_user.username} shared #{video.title}"
-      redirect_to root_path
+      user_ids_except_current = User.where.not(id: session[:current_user_id]).pluck(:id)
+
+      user_ids_except_current.each do |user_id|
+        ActionCable.server.broadcast(
+          "notifications_channel_#{user_id}",
+          user_name: current_user.username,
+          video_title: video.title
+        )
+      end
+      redirect_to my_videos_path
     else
       flash[:alert] = "Fail to share video"
       render :new

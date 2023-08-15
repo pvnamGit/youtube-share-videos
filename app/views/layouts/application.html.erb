@@ -7,9 +7,10 @@
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= action_cable_meta_tag %>
 </head>
 
-<body>
+<body <%= current_user ? "data-user-id=#{current_user.id}" : '' %>>
 <header class="header">
   <div class="left-header">
     <h2><%= link_to 'Funny Movies', root_path %></h2>

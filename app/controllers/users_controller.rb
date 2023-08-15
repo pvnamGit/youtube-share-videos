@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     @user = User.new(register_user_params)
     if @user.save
       session[:current_user_id] = @user.id
+      cookies.signed[:user_id] = @user.id
       redirect_to root_path
     end
   end

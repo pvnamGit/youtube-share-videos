@@ -1,8 +1,7 @@
 class NotificationsChannel < ApplicationCable::Channel
-  rescue_from 'MyError', with: :deliver_error_message
 
   def subscribed
-    stream_from "notifications:#{current_user.id}"
+    stream_from "notifications_channel_#{params[:user_id]}"
   end
 
   def unsubscribed
@@ -10,9 +9,4 @@ class NotificationsChannel < ApplicationCable::Channel
     stop_all_streams
   end
 
-
-  private
-  def deliver_error_message(e)
-    broadcast_to(e)
-  end
 end
