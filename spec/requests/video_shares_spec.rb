@@ -45,6 +45,18 @@ RSpec.describe VideoSharesController, type: :request do
         expect(video.title).to include(expected_title)
         expect(video.description).to include(expected_description)
       end
+
+
+      it "broadcasts a new video to other users" do
+        new_user = User.create(:username => 'new_user', :password => 'password')
+        expect {
+          post video_shares_path, params: valid_url
+        }.to have_broadcasted_to("notifications_channel_#{new_user.id}").with(
+          user_name: @user.username,
+          video_title: "Miyamoto Musashi - 7 Ways To Stay Focused"
+        )
+      end
+
     end
     context "create video share without logged in" do
       it 'not allowed to share' do

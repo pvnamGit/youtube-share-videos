@@ -1,8 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe VideoSharesController, type: :feature do
+RSpec.describe VideoSharesController, type: :feature, js: true do
   include LoginHelper
   let(:user) { User.create(username: "testuser", password: "password", password_confirmation: "password") }
+  let(:valid_url) { "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
+
   before do
     login(user)
   end
@@ -33,7 +35,6 @@ RSpec.describe VideoSharesController, type: :feature do
       end
 
       context "when URL is valid" do
-        let(:valid_url) { "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
         context "when video has already been shared by the user" do
           it "displays an error message" do
             # Create for the first time
@@ -53,7 +54,36 @@ RSpec.describe VideoSharesController, type: :feature do
             visit new_video_share_path
             fill_in "url", with: valid_url
             click_button "Submit"
-            expect(page).to have_current_path(root_path)
+            expect(page).to have_current_path(my_videos_path)
+          end
+        end
+
+        context "User shares a video and triggers a notification broadcast to other users" do
+          let(:new_user) { User.create(username: "new_user", password: "password", password_confirmation: "password") }
+
+          before(:each) do
+            click_button "Logout"
+          end
+          it 'should broadcast to user 2' do
+            using_session(:user) do
+              login(user)
+            end
+            # Log in as user2 in another session
+            using_session(:new_user) do
+              login(new_user)
+            end
+
+            # Share a video as user1
+            using_session(:user) do
+              visit new_video_share_path
+              fill_in "url", with: valid_url
+              click_button 'Submit'
+            end
+
+            # Check for the notification alert as user2 (replace this with your actual alert check)
+            using_session(:new_user) do
+              expect(accept_alert).to eq "#{user.username} shared a new video: Rick Astley - Never Gonna Give You Up (Official Music Video)"
+            end
           end
         end
       end
@@ -108,9 +138,11 @@ RSpec.describe VideoSharesController, type: :feature do
       expect(page).to have_selector('input.btn-delete-video')
     end
 
-    it "deletes the video when the delete link is clicked" do
+    it "deletes the video when the delete button is clicked" do
       visit my_videos_path
-      click_button "Delete"
+      accept_alert do
+        click_button "Delete"
+      end
       expect(current_path).to eq(my_videos_path)
       expect(page).not_to have_selector("h5", text: "Test Title")
 
