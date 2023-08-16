@@ -1,19 +1,10 @@
-databases:
-  - name: youtube_share_videos
-    databaseName: youtube_share_videos
-    user: youtube_share_videos_user
+#!/usr/bin/env bash
+# exit on error
+set -o errexit
 
-services:
-  - type: web
-    name: youtube_share_videos
-    env: ruby
-    buildCommand: "./bin/render-build.sh"
-    startCommand: "bundle exec puma -C config/puma.rb"
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: mysite
-          property: connectionString
-      - key: RAILS_MASTER_KEY
-        sync: false
+bundle install
+bundle exec rake assets:precompile
+bundle exec rake assets:clean
+bundle exec rake db:migrate
 
+./bin/webpack
