@@ -5,7 +5,14 @@
         <img class="card-img" src="<%= video.thumbnail_url %>" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title"><%= link_to video.title, video.url, target: "_blank" %></h5>
-          <p class="card-text"><%= video.description %></p>
+          <b>
+            Created by: <%= video.owner.username %>
+          </b>
+          <div class="card-text">
+            <p class="video-description">
+              <%= video.description %>
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -52,6 +52,7 @@ class VideoSharesController < ApplicationController
 
   def my_videos
     @my_videos = current_user.video_shares.all.order(created_at: :desc)
+    puts @my_videos[0].owner.inspect
     @my_videos
   end
 

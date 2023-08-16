@@ -25,24 +25,37 @@
 .card-body {
   margin-left: 30px;
   display: block;
+  width: 66%;
 }
 
 .card-title {
   font-size: 1.2rem;
   margin-top: unset;
+  margin-bottom: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .card-text {
   color: #6c757d;
   font-size: 1rem;
   margin-bottom: 0;
-  width: 80%;
-  white-space: break-spaces;
-  overflow: hidden;
-  text-overflow: ellipsis;
   height: 120px;
+}
+
+.video-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .share-video {
   margin-top: 20px;
+}
+
+.delete-video-btn {
+  margin-top: auto;
 }
