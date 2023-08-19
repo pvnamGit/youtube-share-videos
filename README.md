@@ -11,6 +11,9 @@ application up and running.
 2. **Sharing YouTube Videos:**
 3. **Viewing Shared Videos:**
 4. **Real-time Notifications:** When a user shares a new video, other logged-in users are instantly notified about the latest addition to the video list.
+
+### 2. Demo
+Link video : [**LINK**](https://drive.google.com/file/d/1koWTkrxYIm8fmlZvqPoKGiAXZBJgxTOf/view?usp=sharing)
 ## II. Things you may want to cover:
 
 * **Ruby version**
